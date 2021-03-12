@@ -1,0 +1,12 @@
+item1:
+  type: IRON_ORE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §aĐịt con mẹ mày
+item2:
+  type: GOLD_ORE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §aĐịt con mẹ mày 2

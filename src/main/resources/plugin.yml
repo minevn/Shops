@@ -1,0 +1,13 @@
+name: Shops
+version: ${project.version}
+main: me.manaki.plugin.shops.Shops
+api-version: 1.16
+softdepend: [ Vaults, PlayerPoints, TokenManager ]
+authors: [ MankaiStep ]
+description: Good shop plugin
+website: Minefs.net
+commands:
+  shops:
+    description: Plugin's commands
+    aliases: [sig, niceshops]
+    permission: shops.admin

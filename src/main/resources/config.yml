@@ -1,0 +1,16 @@
+price:
+  point:
+    unit: 'P'
+    color: '&e'
+  token:
+    unit: 'T'
+    color: '&b'
+  money:
+    unit: '$'
+    color: '&f'
+bonus-lore:
+- ''
+- '&3Còn lại: &7%remain%/%limit%'
+- '&3Giá: %priceColor%%priceValue%%priceUnit%'
+- '&3Click trái: &7Xem'
+- '&3Click phải: &7Mua'

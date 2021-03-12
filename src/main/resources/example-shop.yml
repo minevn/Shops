@@ -1,0 +1,13 @@
+title: '&2&lSIMPLE SHOP'
+size: 9
+content:
+  first-slot:
+    slot: 0
+    item-id: item1
+    sell-amount: 32
+    price-type: point
+    price-value: 3
+    limit: 3
+content-data:
+  first-slot:
+    sold: 1
