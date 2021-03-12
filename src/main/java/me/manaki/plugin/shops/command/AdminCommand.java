@@ -121,15 +121,15 @@ public class AdminCommand implements CommandExecutor {
 	
 	public void sendHelp(CommandSender sender) {
 		sender.sendMessage("");
-		sender.sendMessage("§6§lNiceShops by MankaiStep");
-		sender.sendMessage("/niceshops reload");
-		sender.sendMessage("/niceshops open <*shopID> <player>");
-		sender.sendMessage("/niceshops listitem <page>");
-		sender.sendMessage("/niceshops listshop");
-		sender.sendMessage("/niceshops load <*itemID> <amount> <player>");
-		sender.sendMessage("/niceshops save <*itemID>");
-		sender.sendMessage("/niceshops remove <*itemID>");
-		sender.sendMessage("/niceshops view <*itemID:itemID2:itemID3:...>");
+		sender.sendMessage("§6§lShops by MankaiStep");
+		sender.sendMessage("§a/shops reload");
+		sender.sendMessage("§a/shops open <*shopID> <player>");
+		sender.sendMessage("§a/shops listitem <page>");
+		sender.sendMessage("§a/shops listshop");
+		sender.sendMessage("§a/shops load <*itemID> <amount> <player>");
+		sender.sendMessage("§a/shops save <*itemID>");
+		sender.sendMessage("§a/shops remove <*itemID>");
+		sender.sendMessage("§a/shops view <*itemID:itemID2:itemID3:...>");
 		sender.sendMessage("");
 	}
 	

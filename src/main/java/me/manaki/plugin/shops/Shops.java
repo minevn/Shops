@@ -40,7 +40,7 @@ public class Shops extends JavaPlugin {
 	}
 	
 	public void registerCommands() {
-		this.getCommand("niceshops").setExecutor(new AdminCommand());
+		this.getCommand("shops").setExecutor(new AdminCommand());
 	}
 	
 	public static Shops get() {
