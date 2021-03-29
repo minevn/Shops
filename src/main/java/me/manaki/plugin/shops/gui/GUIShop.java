@@ -1,5 +1,6 @@
 package me.manaki.plugin.shops.gui;
 
+import me.manaki.plugin.shops.event.PlayerShopItemBuyEvent;
 import me.manaki.plugin.shops.historywriter.HistoryWriter;
 import me.manaki.plugin.shops.Shops;
 import me.manaki.plugin.shops.shop.Shop;
@@ -75,7 +76,10 @@ public class GUIShop {
 					player.sendMessage("§cBạn không đủ khả năng chi trả cho món đồ này");
 					return;
 				}
-				
+
+				// Call
+				Bukkit.getPluginManager().callEvent(new PlayerShopItemBuyEvent(player, slot, content.getItemID(), holder.getShopID()));
+
 				// Async task
 				Bukkit.getScheduler().runTaskAsynchronously(Shops.get(), () -> {
 					// Give
