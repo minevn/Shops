@@ -58,7 +58,14 @@ public class ItemStorage {
 		if (is != null) is = is.clone();
 		return is;
 	}
-	
+
+	public static String getID(ItemStack is) {
+		for (Map.Entry<String, ItemStack> e : items.entrySet()) {
+			if (e.getValue().isSimilar(is)) return e.getKey();
+		}
+		return null;
+	}
+
 	public static Map<String, ItemStack> getItemStacks() {
 		return Maps.newHashMap(items);
 	}

@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class ShopUtils {
 	
@@ -28,7 +29,10 @@ public class ShopUtils {
 	}
 	
 	public static ItemStack getBlankSlot() {
-		ItemStack is = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+		ItemStack is = new ItemStack(Material.GLASS_PANE);
+		ItemMeta meta = is.getItemMeta();
+		meta.setCustomModelData(1);
+		is.setItemMeta(meta);
 		ItemStackUtils.setDisplayName(is, " ");
 		return is;
 	}
