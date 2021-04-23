@@ -24,6 +24,7 @@ public class ShopUtils {
 	
 	public static void give(Player player, ShopContent content) {
 		ItemStack is = ItemStorage.get(content.getItemID());
+		assert is != null;
 		is.setAmount(content.getSellAmount());
 		player.getInventory().addItem(is);
 	}

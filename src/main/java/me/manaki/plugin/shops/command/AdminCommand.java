@@ -5,6 +5,7 @@ import java.util.List;
 import me.manaki.plugin.shops.gui.GUIShop;
 import me.manaki.plugin.shops.gui.GUIView;
 import me.manaki.plugin.shops.Shops;
+import me.manaki.plugin.shops.openrandom.OpenRandoms;
 import me.manaki.plugin.shops.storage.ItemStorage;
 import me.manaki.plugin.shops.storage.ShopStorage;
 import org.bukkit.Bukkit;
@@ -110,6 +111,12 @@ public class AdminCommand implements CommandExecutor {
 				List<String> items = Lists.newArrayList(args[1].split(":"));
 				GUIView.open(player, items, null, 0);
 			}
+
+			else if (args[0].equalsIgnoreCase("openrandom")) {
+				String id = args[1];
+				Player player = Bukkit.getPlayer(args[2]);
+				OpenRandoms.open(player, id);
+			}
 			
 		}
 		catch (ArrayIndexOutOfBoundsException e) {
@@ -130,6 +137,7 @@ public class AdminCommand implements CommandExecutor {
 		sender.sendMessage("§a/shops save <*itemID>");
 		sender.sendMessage("§a/shops remove <*itemID>");
 		sender.sendMessage("§a/shops view <*itemID:itemID2:itemID3:...>");
+		sender.sendMessage("§a/shops openrandom <*id> <player>");
 		sender.sendMessage("");
 	}
 	

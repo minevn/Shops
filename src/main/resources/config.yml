@@ -14,3 +14,19 @@ bonus-lore:
 - '&3Giá: %priceColor%%priceValue%%priceUnit%'
 - '&3Click trái: &7Xem'
 - '&3Click phải: &7Mua'
+
+open-random:
+  d1:
+    amount: 5
+    items:
+      - coal3
+      - diamond3
+      - gold3
+      - iron3
+      - lapis3
+      - redstone3
+      - oak3
+      - darkoak3
+      - birch3
+      - wheat3
+      - sugar3

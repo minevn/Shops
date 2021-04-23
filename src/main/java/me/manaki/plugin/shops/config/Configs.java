@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.common.collect.Maps;
+import me.manaki.plugin.shops.openrandom.OpenRandom;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import com.google.common.collect.Lists;
@@ -11,12 +13,20 @@ import com.google.common.collect.Lists;
 public class Configs {
 	
 	private static List<String> BONUS_LORE = Lists.newArrayList();
+	private static Map<String, OpenRandom> openRandom = Maps.newHashMap();
 	
 	public static void load(FileConfiguration config) {
 		BONUS_LORE.clear();
 		config.getStringList("bonus-lore").forEach(s -> {
 			BONUS_LORE.add(s.replace("&", "§"));
 		});
+
+		openRandom.clear();
+		for (String id : config.getConfigurationSection("open-random").getKeys(false)) {
+			int amount = config.getInt("open-random." + id + ".amount");
+			var items = config.getStringList("open-random." + id + ".items");
+			openRandom.put(id, new OpenRandom(id, amount, items));
+		}
 	}
 	
 	public static List<String> getBonusLore(Map<String, String> placeholders, boolean limit) {
@@ -29,5 +39,12 @@ public class Configs {
 		});
 		return list;
 	}
-	
+
+	public static Map<String, OpenRandom> getOpenRandom() {
+		return openRandom;
+	}
+
+	public static OpenRandom getOR(String id) {
+		return openRandom.getOrDefault(id, null);
+	}
 }
