@@ -2,6 +2,8 @@ package me.manaki.plugin.shops.storage;
 
 import java.util.Map;
 
+import mk.plugin.santory.item.Items;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -46,6 +48,9 @@ public class ItemStorage {
 	}
 	
 	public static ItemStack get(String id) {
+		if (id.startsWith("santory_") && Bukkit.getPluginManager().isPluginEnabled("SantoryCore")) {
+			return Items.build(null, id.replace("santory_", ""));
+		}
 		ItemStack is = items.getOrDefault(id, null);
 		if (is == null) {
 			try {
