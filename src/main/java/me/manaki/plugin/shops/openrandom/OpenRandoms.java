@@ -22,19 +22,24 @@ public class OpenRandoms {
             Shops.get().getLogger().warning("NULL");
             return;
         }
-        if (or.getAmount() > or.getItems().size()) {
+        int amount = or.getAmount(player);
+        if (amount > or.getItems().size()) {
             Shops.get().getLogger().warning("Amount > Size");
             return;
         }
-        int size = Math.max(9, or.getAmount() % 9 == 0 ? or.getAmount() : (or.getAmount() / 9 + 1) * 9);
+        int size = Math.max(9, amount % 9 == 0 ? amount : (amount / 9 + 1) * 9);
         var inv = Bukkit.createInventory(null, size);
         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
         player.openInventory(inv);
+        int bonus = or.getBonus(player);
+        if (bonus > 0) {
+            player.sendMessage("§aBạn được thêm " + bonus + " vật phẩm khi mở rương");
+        }
 
         int c = 0;
         List<String> result = Lists.newArrayList();
         List<String> items = Lists.newArrayList(or.getItems());
-        while (c != or.getAmount()) {
+        while (c != amount) {
             c++;
             int i = new Random().nextInt(items.size());
             result.add(items.get(i));

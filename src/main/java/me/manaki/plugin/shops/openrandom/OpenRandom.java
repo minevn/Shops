@@ -1,5 +1,8 @@
 package me.manaki.plugin.shops.openrandom;
 
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachmentInfo;
+
 import java.util.List;
 
 public class OpenRandom {
@@ -18,8 +21,20 @@ public class OpenRandom {
         return id;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getBonus(Player player) {
+        int bonus = 0;
+        if (player != null) {
+            for (PermissionAttachmentInfo p : player.getEffectivePermissions()) {
+                if (p.getPermission().contains("shops.random.bonus.") && p.getValue()) {
+                    bonus += Integer.parseInt(p.getPermission().replace("shops.random.bonus.", ""));
+                }
+            }
+        }
+        return bonus;
+    }
+
+    public int getAmount(Player player) {
+        return amount + getBonus(player);
     }
 
     public List<String> getItems() {
