@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.common.collect.Maps;
+import me.manaki.plugin.shops.holdpermission.HoldPermission;
 import me.manaki.plugin.shops.openrandom.OpenRandom;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -14,7 +15,9 @@ public class Configs {
 	
 	private static List<String> BONUS_LORE = Lists.newArrayList();
 	private static Map<String, OpenRandom> openRandom = Maps.newHashMap();
-	
+
+	private static Map<String, HoldPermission> holdPermissions = Maps.newHashMap();
+
 	public static void load(FileConfiguration config) {
 		BONUS_LORE.clear();
 		config.getStringList("bonus-lore").forEach(s -> {
@@ -26,6 +29,13 @@ public class Configs {
 			int amount = config.getInt("open-random." + id + ".amount");
 			var items = config.getStringList("open-random." + id + ".items");
 			openRandom.put(id, new OpenRandom(id, amount, items));
+		}
+
+		holdPermissions.clear();
+		for (String id : config.getConfigurationSection("hold-permission").getKeys(false)) {
+			var paerm = config.getString("hold-permission." + id + ".permission");
+			var mess = config.getString("hold-permission." + id + ".message").replace("&", "§");
+			holdPermissions.put(id, new HoldPermission(id, paerm, mess));
 		}
 	}
 	
@@ -46,5 +56,9 @@ public class Configs {
 
 	public static OpenRandom getOR(String id) {
 		return openRandom.getOrDefault(id, null);
+	}
+
+	public static Map<String, HoldPermission> getHoldPermissions() {
+		return holdPermissions;
 	}
 }

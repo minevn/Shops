@@ -15,6 +15,11 @@ bonus-lore:
 - '&3Click trái: &7Xem'
 - '&3Click phải: &7Mua'
 
+hold-permission:
+  vipcoin:
+    permission: 'vipcoin.use'
+    message: '&cSở hữu VIP trở lên để có thể dùng VIP Coin'
+
 open-random:
   d1:
     amount: 5
