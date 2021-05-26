@@ -92,7 +92,7 @@ public class GUIShop {
 					
 					// Send message
 					player.sendMessage("§aMua thành công");
-					player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1, 1);
+					player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1, 1);
 					
 					// Write history
 					HistoryWriter.write(Shops.get(), player, holder.getShopID(), contentID, true);

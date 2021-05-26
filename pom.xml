@@ -64,8 +64,8 @@
         </dependency>
         <dependency>
             <groupId>minevn.depend</groupId>
-            <artifactId>Tuinity</artifactId>
-            <version>1.16.5-b203</version>
+            <artifactId>paper</artifactId>
+            <version>1.12.2-b1606</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

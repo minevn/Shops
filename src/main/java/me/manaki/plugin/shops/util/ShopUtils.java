@@ -30,9 +30,8 @@ public class ShopUtils {
 	}
 	
 	public static ItemStack getBlankSlot() {
-		ItemStack is = new ItemStack(Material.GLASS_PANE);
+		ItemStack is = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta meta = is.getItemMeta();
-		meta.setCustomModelData(1);
 		is.setItemMeta(meta);
 		ItemStackUtils.setDisplayName(is, " ");
 		return is;
