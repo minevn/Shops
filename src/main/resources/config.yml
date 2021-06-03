@@ -22,12 +22,24 @@ hold-permission:
 
 open-random:
   d1:
-    amount: 5
-    items:
+    c1:
+      amount: 2
+      items:
       - coal3
       - diamond3
       - gold3
       - iron3
+    c2:
+      amount: 3
+      items:
+        - lapis3
+        - redstone3
+        - oak3
+        - darkoak3
+        - birch3
+        - wheat3
+        - sugar3
+    bonus:
       - lapis3
       - redstone3
       - oak3
@@ -35,3 +47,7 @@ open-random:
       - birch3
       - wheat3
       - sugar3
+      - coal3
+      - diamond3
+      - gold3
+      - iron3

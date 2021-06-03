@@ -23,28 +23,43 @@ public class OpenRandoms {
             return;
         }
         int amount = or.getAmount(player);
-        if (amount > or.getItems().size()) {
-            Shops.get().getLogger().warning("Amount > Size");
-            return;
-        }
+//        if (amount > or.getItems().size()) {
+//            Shops.get().getLogger().warning("Amount > Size");
+//            return;
+//        }
         int size = Math.max(9, amount % 9 == 0 ? amount : (amount / 9 + 1) * 9);
         var inv = Bukkit.createInventory(null, size);
         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
         player.openInventory(inv);
-        int bonus = or.getBonus(player);
+        int bonus = or.getBonusFromPerm(player);
         if (bonus > 0) {
             player.sendMessage("§aBạn được thêm " + bonus + " vật phẩm khi mở rương");
         }
 
-        int c = 0;
         List<String> result = Lists.newArrayList();
-        List<String> items = Lists.newArrayList(or.getItems());
-        while (c != amount) {
+
+        // Categories
+        for (Category category : or.getCategories()) {
+            int c = 0;
+            List<String> items = Lists.newArrayList(category.getItems());
+            while (c != category.getAmount()) {
+                c++;
+                int i = new Random().nextInt(items.size());
+                result.add(items.get(i));
+                items.remove(i);
+            }
+        }
+
+        // Bonus
+        int c = 0;
+        List<String> items = Lists.newArrayList(or.getBonus());
+        while (c != bonus) {
             c++;
             int i = new Random().nextInt(items.size());
             result.add(items.get(i));
             items.remove(i);
         }
+
         Bukkit.getScheduler().runTaskAsynchronously(Shops.get(), () -> {
             for (int i = 0; i < result.size(); i++) inv.setItem(i, ItemStorage.get(result.get(i)));
         });

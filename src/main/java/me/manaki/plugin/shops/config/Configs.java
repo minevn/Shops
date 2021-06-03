@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import com.google.common.collect.Maps;
 import me.manaki.plugin.shops.holdpermission.HoldPermission;
+import me.manaki.plugin.shops.openrandom.Category;
 import me.manaki.plugin.shops.openrandom.OpenRandom;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -26,9 +27,17 @@ public class Configs {
 
 		openRandom.clear();
 		for (String id : config.getConfigurationSection("open-random").getKeys(false)) {
-			int amount = config.getInt("open-random." + id + ".amount");
-			var items = config.getStringList("open-random." + id + ".items");
-			openRandom.put(id, new OpenRandom(id, amount, items));
+			List<Category> categories = Lists.newArrayList();
+			for (String id2 : config.getConfigurationSection("open-random." + id).getKeys(false)) {
+				if (!id2.equals("bonus")) {
+					int amount = config.getInt("open-random." + id + "." + id2 + ".amount");
+					var items = config.getStringList("open-random." + id + "." + id2 + ".items");
+					var category = new Category(id2, amount, items);
+					categories.add(category);
+				}
+			}
+			List<String> bonus = config.getStringList("open-random." + id + ".bonus");
+			openRandom.put(id, new OpenRandom(id, categories, bonus));
 		}
 
 		holdPermissions.clear();

@@ -8,20 +8,20 @@ import java.util.List;
 public class OpenRandom {
 
     private String id;
-    private int amount;
-    private List<String> items;
+    private List<Category> categories;
+    private List<String> bonus;
 
-    public OpenRandom(String id, int amount, List<String> items) {
+    public OpenRandom(String id, List<Category> categories, List<String> bonus) {
         this.id = id;
-        this.amount = amount;
-        this.items = items;
+        this.categories = categories;
+        this.bonus = bonus;
     }
 
     public String getId() {
         return id;
     }
 
-    public int getBonus(Player player) {
+    public int getBonusFromPerm(Player player) {
         int bonus = 0;
         if (player != null) {
             for (PermissionAttachmentInfo p : player.getEffectivePermissions()) {
@@ -34,10 +34,18 @@ public class OpenRandom {
     }
 
     public int getAmount(Player player) {
-        return amount + getBonus(player);
+        int amount = 0;
+        for (Category category : categories) {
+            amount += category.getAmount();
+        }
+        return amount + getBonusFromPerm(player);
     }
 
-    public List<String> getItems() {
-        return items;
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public List<String> getBonus() {
+        return bonus;
     }
 }
