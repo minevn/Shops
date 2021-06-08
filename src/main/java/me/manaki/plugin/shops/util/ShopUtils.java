@@ -51,7 +51,7 @@ public class ShopUtils {
 		String name = ItemStackUtils.getName(is);
 		
 		// Name
-		name += name.contains("§l") ? " §7§l(x" + content.getSellAmount() + ")" : " §7(x" + content.getSellAmount() + ")";
+		lore.add(name.contains("§l") ? "§7§lx" + content.getSellAmount() : "§7x" + content.getSellAmount());
 		
 		// Lore
 		Map<String, String> placeholders = Maps.newHashMap();
@@ -64,7 +64,7 @@ public class ShopUtils {
 		lore.addAll(Configs.getBonusLore(placeholders, content.getLimit() != -1));
 		
 		// Set
-		ItemStackUtils.setDisplayName(is, name);
+		if (is.getItemMeta().hasDisplayName()) ItemStackUtils.setDisplayName(is, name);
 		ItemStackUtils.setLore(is, lore);
 		ItemStackUtils.addFlag(is, ItemFlag.HIDE_ATTRIBUTES);
 		
