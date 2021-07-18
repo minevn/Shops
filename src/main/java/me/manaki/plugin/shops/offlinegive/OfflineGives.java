@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import me.manaki.plugin.shops.Shops;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -50,16 +51,15 @@ public class OfflineGives {
 	}
 	
 	public static void checkOfflineGive(Plugin plugin, Player player) {
+		if (player == null || !player.isOnline()) return;
 		if (gives.containsKey(player.getName())) {
 			var list = gives.get(player.getName());
 			int empty = countEmpty(player.getInventory());
 			if (empty < list.size()) {
-				if (player.getInventory().firstEmpty() == -1) {
-					player.sendMessage("");
-					player.sendMessage("§c§lBạn có món đồ được nhận nhưng kho không có chỗ trống");
-					player.sendMessage("§c§lDọn kho, thoát game rồi vào lại để nhận đồ!");
-					return;
-				}
+				player.sendMessage("");
+				player.sendMessage("§c§lBạn có món đồ được nhận nhưng kho không có chỗ trống");
+				player.sendMessage("§c§lDọn kho, thoát game rồi vào lại để nhận đồ!");
+				return;
 			}
 			for (var item : gives.get(player.getName())) {
 				var id = item.getId();
@@ -85,9 +85,9 @@ public class OfflineGives {
 		var contents = inv.getContents();
 		int count = 0;
 		for (ItemStack content : contents) {
-			if (content == null) count++;
+			if (content == null || content.getType() == Material.AIR) count++;
 		}
-		return count;
+		return count - 5;
 	}
 	
 }
