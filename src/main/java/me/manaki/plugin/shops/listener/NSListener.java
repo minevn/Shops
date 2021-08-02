@@ -3,6 +3,7 @@ package me.manaki.plugin.shops.listener;
 import me.manaki.plugin.shops.config.Configs;
 import me.manaki.plugin.shops.holdpermission.HoldPermission;
 import me.manaki.plugin.shops.offlinegive.OfflineGives;
+import me.manaki.plugin.shops.openrandom.OpenRandoms;
 import me.manaki.plugin.shops.storage.ItemStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,6 +23,11 @@ import org.bukkit.inventory.Inventory;
 import java.util.Map;
 
 public class NSListener implements Listener {
+
+	@EventHandler
+	public void onInvClose(InventoryCloseEvent e) {
+		OpenRandoms.onClose(e);
+	}
 
 	@EventHandler
 	public void onItemHold(PlayerItemHeldEvent e) {

@@ -7,6 +7,11 @@ import me.manaki.plugin.shops.storage.ItemStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Random;
@@ -28,7 +33,7 @@ public class OpenRandoms {
 //            return;
 //        }
         int size = Math.max(9, amount % 9 == 0 ? amount : (amount / 9 + 1) * 9);
-        var inv = Bukkit.createInventory(null, size);
+        var inv = Bukkit.createInventory(new RandomHolder(), size, "§0Đóng lại là tự chuyển vào kho đồ");
         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
         player.openInventory(inv);
         int bonus = or.getBonusFromPerm(player);
@@ -65,4 +70,20 @@ public class OpenRandoms {
         });
     }
 
+    public static void onClose(InventoryCloseEvent e) {
+        if (!(e.getInventory().getHolder() instanceof RandomHolder)) return;
+        var inv = e.getInventory();
+        for (ItemStack is : inv.getContents()) {
+            e.getPlayer().getInventory().addItem(is);
+        }
+    }
+
+}
+
+class RandomHolder implements InventoryHolder {
+
+    @Override
+    public @NotNull Inventory getInventory() {
+        return null;
+    }
 }
