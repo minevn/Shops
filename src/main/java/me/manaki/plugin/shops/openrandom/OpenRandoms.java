@@ -5,6 +5,7 @@ import me.manaki.plugin.shops.Shops;
 import me.manaki.plugin.shops.config.Configs;
 import me.manaki.plugin.shops.storage.ItemStorage;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -74,6 +75,7 @@ public class OpenRandoms {
         if (!(e.getInventory().getHolder() instanceof RandomHolder)) return;
         var inv = e.getInventory();
         for (ItemStack is : inv.getContents()) {
+            if (is == null || is.getType() == Material.AIR) continue;
             e.getPlayer().getInventory().addItem(is);
         }
     }

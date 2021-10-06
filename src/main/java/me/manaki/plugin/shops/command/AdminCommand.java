@@ -71,17 +71,24 @@ public class AdminCommand implements CommandExecutor {
 				}
 				int amount = 1;
 				Player player = null;
+				boolean hand = false;
 				if (args.length == 2) player = (Player) sender;
 				else {
 					amount = Integer.valueOf(args[2]);
 					player = Bukkit.getPlayer(args[3]);
+					if (args.length == 5) hand = Boolean.valueOf(args[4]);
 				}
 				if (player == null) {
 					sender.sendMessage("§cPlayer is null?");
 					return false;
 				}
 				is.setAmount(amount);
-				player.getInventory().addItem(is);
+				if (!hand) player.getInventory().addItem(is);
+				else {
+					var handItem = player.getInventory().getItemInMainHand();
+					player.getInventory().setItemInMainHand(is);
+					player.getInventory().addItem(handItem);
+				}
 				
 				if (sender instanceof Player) {
 					sender.sendMessage("Ok, gave it to " + player.getName());
@@ -133,7 +140,7 @@ public class AdminCommand implements CommandExecutor {
 		sender.sendMessage("§a/shops open <*shopID> <player>");
 		sender.sendMessage("§a/shops listitem <page>");
 		sender.sendMessage("§a/shops listshop");
-		sender.sendMessage("§a/shops load <*itemID> <amount> <player>");
+		sender.sendMessage("§a/shops load <*itemID> <amount> <player> <tohand(true/false)>");
 		sender.sendMessage("§a/shops save <*itemID>");
 		sender.sendMessage("§a/shops remove <*itemID>");
 		sender.sendMessage("§a/shops view <*itemID:itemID2:itemID3:...>");
