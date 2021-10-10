@@ -28,7 +28,7 @@ public class GUIShop {
 		// Load contents
 		Bukkit.getScheduler().runTaskAsynchronously(Shops.get(), () -> {
 			// Background
-			for (int i = 0 ; i < inv.getSize() ; i++) inv.setItem(i, ShopUtils.getBlankSlot());
+//			for (int i = 0 ; i < inv.getSize() ; i++) inv.setItem(i, ShopUtils.getBlankSlot());
 			// Icons
 			shop.getContents().forEach((contentID, content) -> {
 				inv.setItem(content.getSlot(), ShopUtils.getIcon(content, shop.getContentData(contentID)));
