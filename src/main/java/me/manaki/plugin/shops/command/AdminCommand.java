@@ -9,6 +9,7 @@ import me.manaki.plugin.shops.openrandom.OpenRandoms;
 import me.manaki.plugin.shops.storage.ItemStorage;
 import me.manaki.plugin.shops.storage.ShopStorage;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -124,6 +125,60 @@ public class AdminCommand implements CommandExecutor {
 				Player player = Bukkit.getPlayer(args[2]);
 				OpenRandoms.open(player, id);
 			}
+
+
+			/*
+			Update for selling
+			 */
+			else if (args[0].equalsIgnoreCase("item")) {
+				if (args[1].equalsIgnoreCase("save")) {
+					Player player = (Player) sender;
+					String id = args[2];
+					boolean replace = ItemStorage.getItemStacks().containsKey(id);
+					ItemStack is = player.getInventory().getItemInMainHand();
+					is.setAmount(1);
+					ItemStorage.save(Shops.get(), id, is);
+					if (replace) sender.sendMessage("§aReplaced item id §f" + id);
+					else sender.sendMessage("§aSaved item id §f" + id);
+				}
+				else if (args[1].equalsIgnoreCase("remove")) {
+					String id = args[2];
+					ItemStorage.remove(Shops.get(), id);
+					sender.sendMessage("§aRemoved item id §c" + id);
+				}
+				else if (args[1].equalsIgnoreCase("give")) {
+					String id = args[2];
+					ItemStack is = ItemStorage.get(id);
+					if (is == null) {
+						sender.sendMessage("§7Can't find item id §c" + id);
+						return false;
+					}
+					int amount = 1;
+					Player player = null;
+					boolean hand = false;
+					if (args.length == 3) player = (Player) sender;
+					else {
+						amount = Integer.valueOf(args[3]);
+						player = Bukkit.getPlayer(args[4]);
+						if (args.length == 6) hand = Boolean.valueOf(args[5]);
+					}
+					if (player == null) {
+						sender.sendMessage("§cPlayer is null?");
+						return false;
+					}
+					is.setAmount(amount);
+					if (!hand) player.getInventory().addItem(is);
+					else {
+						var handItem = player.getInventory().getItemInMainHand();
+						player.getInventory().setItemInMainHand(is);
+						player.getInventory().addItem(handItem);
+					}
+
+					if (sender instanceof Player) {
+						sender.sendMessage("§aOk, gave §f" + id + " x " + amount + " §ato §f" + player.getName());
+					}
+				}
+			}
 			
 		}
 		catch (ArrayIndexOutOfBoundsException e) {
@@ -134,17 +189,26 @@ public class AdminCommand implements CommandExecutor {
 	}
 	
 	public void sendHelp(CommandSender sender) {
-		sender.sendMessage("");
-		sender.sendMessage("§6§lShops by MankaiStep");
-		sender.sendMessage("§a/shops reload");
-		sender.sendMessage("§a/shops open <*shopID> <player>");
-		sender.sendMessage("§a/shops listitem <page>");
-		sender.sendMessage("§a/shops listshop");
+		if (sender instanceof Player) {
+			((Player) sender).playSound(((Player) sender).getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+		}
+		sender.sendMessage(" ");
+		sender.sendMessage("§6§lShops by MankaiStep &7(Dấu * là bắt buộc phải có)");
+		sender.sendMessage("§a/shops: §fHiển thị tất cả lệnh");
+		sender.sendMessage("§a/shops reload: §fReload plugin");
+		sender.sendMessage(" ");
+		sender.sendMessage("§a/shops open <*shop-id> <player>: §fMở shop GUI cho player");
+		sender.sendMessage("§a/shops listitem <page>: §fXem tất cả các item hiện có");
+		sender.sendMessage("§a/shops listshop: §fXem tất cả các shop hiện có");
+		sender.sendMessage(" ");
+		sender.sendMessage("§a/shops item save <*item-id>: §fLưu lại item trên tay với id là <item-id>");
+		sender.sendMessage("§a/shops item remove <*item-id>: §fXoá item có id <item-id> khỏi dữ liệu");
+		sender.sendMessage("§a/shops item give <*item-id> <amount> <player>: §fGive item có id là <item-id> cho player");
 		sender.sendMessage("§a/shops load <*itemID> <amount> <player> <tohand(true/false)>");
-		sender.sendMessage("§a/shops save <*itemID>");
-		sender.sendMessage("§a/shops remove <*itemID>");
-		sender.sendMessage("§a/shops view <*itemID:itemID2:itemID3:...>");
-		sender.sendMessage("§a/shops openrandom <*id> <player>");
+		sender.sendMessage(" ");
+		sender.sendMessage("§a/shops view <*itemID:itemID2:itemID3:...>: §fMở giao diện view item");
+		sender.sendMessage(" ");
+		sender.sendMessage("§a/shops openrandom <*id> <player>: §fMở GUI nhận item random cho player");
 		sender.sendMessage("");
 	}
 	
