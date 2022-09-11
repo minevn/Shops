@@ -24,6 +24,7 @@ public class GUIShop {
 		Shop shop = ShopStorage.get(id);
 		Inventory inv = Bukkit.createInventory(new GUIHolder(id), shop.getSize(), shop.getTitle());
 		player.openInventory(inv);
+		player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
 		
 		// Load contents
 		Bukkit.getScheduler().runTaskAsynchronously(Shops.get(), () -> {
@@ -50,6 +51,8 @@ public class GUIShop {
 		shop.getContents().forEach((contentID, content) -> {
 			if (content.getSlot() != slot) return;
 			ShopContentData contentData = shop.getContentData(contentID);
+
+			player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
 			
 			// Open view
 			if (e.getClick() == ClickType.LEFT) {
@@ -61,6 +64,7 @@ public class GUIShop {
 				if (content.isLimited()) {
 					if (ShopUtils.getRemain(content, contentData) <= 0) {
 						player.sendMessage("§cBạn không thể mua vật phẩm này được nữa");
+						player.playSound(player.getLocation(), Sound.ENTITY_GHAST_AMBIENT, 1, 1);
 						return;
 					}
 				}
@@ -68,12 +72,14 @@ public class GUIShop {
 				// Check inventory slot
 				if (!ShopUtils.canGiveItem(player)) {
 					player.sendMessage("§cTúi đồ của bạn không đủ chỗ trống");
+					player.playSound(player.getLocation(), Sound.ENTITY_GHAST_AMBIENT, 1, 1);
 					return;
 				}
 				
 				// Pay
 				if (!content.getPriceType().pay(player, content.getPriceValue())) {
 					player.sendMessage("§cBạn không đủ khả năng chi trả cho món đồ này");
+					player.playSound(player.getLocation(), Sound.ENTITY_GHAST_AMBIENT, 1, 1);
 					return;
 				}
 

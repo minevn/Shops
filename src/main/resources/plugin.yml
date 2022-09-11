@@ -1,5 +1,5 @@
 name: Shops
-version: ${project.version}
+version: 1.0-s
 main: me.manaki.plugin.shops.Shops
 api-version: 1.16
 softdepend: [ Vaults, PlayerPoints, TokenManager ]

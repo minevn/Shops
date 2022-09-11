@@ -135,7 +135,7 @@ public class AdminCommand implements CommandExecutor {
 					Player player = (Player) sender;
 					String id = args[2];
 					boolean replace = ItemStorage.getItemStacks().containsKey(id);
-					ItemStack is = player.getInventory().getItemInMainHand();
+					ItemStack is = player.getInventory().getItemInMainHand().clone();
 					is.setAmount(1);
 					ItemStorage.save(Shops.get(), id, is);
 					if (replace) sender.sendMessage("§aReplaced item id §f" + id);
@@ -193,7 +193,7 @@ public class AdminCommand implements CommandExecutor {
 			((Player) sender).playSound(((Player) sender).getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 		}
 		sender.sendMessage(" ");
-		sender.sendMessage("§6§lShops by MankaiStep &7(Dấu * là bắt buộc phải có)");
+		sender.sendMessage("§6§lShops by MankaiStep §7(Dấu * là bắt buộc phải có)");
 		sender.sendMessage("§a/shops: §fHiển thị tất cả lệnh");
 		sender.sendMessage("§a/shops reload: §fReload plugin");
 		sender.sendMessage(" ");

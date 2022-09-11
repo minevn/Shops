@@ -41,10 +41,12 @@ public class Configs {
 		}
 
 		holdPermissions.clear();
-		for (String id : config.getConfigurationSection("hold-permission").getKeys(false)) {
-			var paerm = config.getString("hold-permission." + id + ".permission");
-			var mess = config.getString("hold-permission." + id + ".message").replace("&", "§");
-			holdPermissions.put(id, new HoldPermission(id, paerm, mess));
+		if (config.contains("hold-permission")) {
+			for (String id : config.getConfigurationSection("hold-permission").getKeys(false)) {
+				var paerm = config.getString("hold-permission." + id + ".permission");
+				var mess = config.getString("hold-permission." + id + ".message").replace("&", "§");
+				holdPermissions.put(id, new HoldPermission(id, paerm, mess));
+			}
 		}
 	}
 	
